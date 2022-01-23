@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//In CSV file exported by an alarm, Action is a type of data. An action is a characterized string.
+
 public class Action {
     //Attribute
     private String action ;
@@ -12,11 +14,13 @@ public class Action {
     }
     //Setters
     public void setAction(String action){
-        if (actionType.contains(action.replaceAll("\\s",""))) {
-            this.action = action.replaceAll("\\s","") ;
+        String actionWithoutSpace = action.replaceAll("\\s","");
+        boolean isReferencedAction = actionType.contains(actionWithoutSpace);
+        if (isReferencedAction) {
+            this.action = actionWithoutSpace ;
         }
         else {
-            System.out.println(action + " is not a recognized action.");
+            System.out.println(actionWithoutSpace + " is not a recognized action.");
         }
     }
     //Constructor
