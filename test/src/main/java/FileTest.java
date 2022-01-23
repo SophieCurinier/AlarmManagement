@@ -8,36 +8,35 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FileTest {
-    public static Set<String> listFilesUsingDirectoryStream(String dir) throws IOException {
+    public static Set<String> listFilesUsingDirectoryStream(String dir) {
         Set<String> fileList = new HashSet<>();
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(dir))) {
             for (Path path : stream) {
                 if (!Files.isDirectory(path)) {
                     fileList.add(path.getFileName()
                             .toString());
-                    System.out.println(path.getFileName().toString());
+                    System.out.println(path.getFileName());
                 }
             }
+        }
+        catch (IOException e){
+            System.out.println(dir + " isn't a directory");
         }
         return fileList;
     }
 
     public boolean existsFile(String path){
         File tempFile = new File(path);
-        boolean exists = tempFile.exists();
-        return exists;
+        return tempFile.exists();
     }
 
     public boolean hasGoodExtension(String filename, String extension){
-        Integer i = filename.lastIndexOf('.');
+        int i = filename.lastIndexOf('.');
         String extensionFileName = filename.substring(i);
-        if( extensionFileName.compareTo(extension) == 0){
-            return true;
-        }
-        else return false;
+        return extensionFileName.compareTo(extension) == 0;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Set<String> test = listFilesUsingDirectoryStream("C:\\Users\\sophi\\Downloads\\VLS_TBOX_(Sophie) (1)\\VLS_TBOX_(Sophie)\\TBox01");
         //String file1 = test.get(0);
     }
